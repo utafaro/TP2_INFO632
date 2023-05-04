@@ -12,23 +12,27 @@ void create_binary_tree(int height) {
     if (pid1 < 0) {
         exit(EXIT_FAILURE);
     } else if (pid1 == 0) {
+         // Processus 1 enfant
         printf("Parent (%d) -> Child process with PID %d\n", getppid(), getpid());
         sleep(10);
         create_binary_tree(height - 1); //récursivité
         exit(EXIT_SUCCESS);
     } else {
-        pid2 = fork();
+        // Processus  1 parent
+        pid2 = fork(); 
         if (pid2 < 0) {
             perror("fork");
             exit(EXIT_FAILURE);
         } else if (pid2 == 0) {
+            // Processus 2 enfant
             printf("Parent (%d) -> Child process with PID %d\n", getppid(), getpid());
             sleep(10);
             create_binary_tree(height - 1);
             exit(EXIT_SUCCESS);
         } else {
-            wait(NULL);
-            wait(NULL);
+            // Processus  2 parent
+            wait(NULL);  // Le processus parent attend la fin du processus enfant
+            wait(NULL);  
             printf("Parent process with PID %d create children with PIDs %d and %d\n", getpid(), pid1, pid2);
             exit(EXIT_SUCCESS);
         }

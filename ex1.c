@@ -13,9 +13,11 @@ int main(int argc, char *argv[]) {
             perror("fork");
             exit(EXIT_FAILURE);
         } else if (pid == 0) {
+            //Processus enfant
             printf("Child process with PID %d\n", getpid());
             sleep(10);
         } else {
+            //Processus parent
             wait(NULL);
             printf("Parent process with PID %d create a child process with PID %d\n", getpid(), pid);
             exit(EXIT_SUCCESS);
